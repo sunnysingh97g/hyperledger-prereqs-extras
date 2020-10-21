@@ -1,0 +1,14 @@
+systemctl restart nfs-server
+systemctl enable nfs-server
+netstat --listening --tcp --udp | grep nfs
+cat /etc/exports
+/exports     *(rw,no_root_squash)
+sudo exportfs -a
+firewall-cmd --permanent --add-service mountd
+firewall-cmd --permanent --add-service nfs
+firewall-cmd --reload
+temp access:
+mount -o nfsvers=4 10.10.10.12:/nfs_shares /mnt
+permanent access
+sudo etc/fstab
+10.10.10.12:/nfs_shares /mnt            nfs     rw,soft         0 0

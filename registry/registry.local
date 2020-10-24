@@ -21,7 +21,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: /tmp/repository
+    path: /exports
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -113,6 +113,8 @@ kubectl exec docker-registry-pod -it -- sh
 ls /var/lib/registry/docker/registry/v2/repositories/
 
 kubectl run nginx-pod --image=docker-registry:5000/mynginx:v1 --overrides='{ "apiVersion": "v1", "spec": { "imagePullSecrets": [{"name": "reg-cred-secret"}] } }'
+kubectl
+
 
 
 curl 10.38.0.2:80

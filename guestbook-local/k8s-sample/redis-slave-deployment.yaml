@@ -1,0 +1,34 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: redis-local-slave
+  labels:
+    app: redis-local
+spec:
+  selector:
+    matchLabels:
+      app: redis-local
+      role: slave
+      tier: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: redis-local
+        role: slave
+        tier: backend
+    spec:
+      containers:
+      - name: slave
+        image: docker-registry:5000/redisslave:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 6379
+      imagePullSecrets:
+      - name: reg-cred-secret

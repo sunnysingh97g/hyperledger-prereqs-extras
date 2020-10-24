@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-local-master
+  labels:
+    app: redis-local
+    role: master
+    tier: backend
+spec:
+  ports:
+  - name: redis-local
+    port: 6379
+    targetPort: 6379
+  selector:
+    app: redis-local
+    role: master
+    tier: backend
+

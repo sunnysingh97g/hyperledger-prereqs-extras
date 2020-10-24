@@ -8,7 +8,7 @@ firewall-cmd --permanent --add-service mountd
 firewall-cmd --permanent --add-service nfs
 firewall-cmd --reload
 temp access:
-mount -o nfsvers=4 10.10.10.12:/nfs_shares /mnt
+mount -o nfsvers=4 master-rhel-01:/exports /nfs-shares
 permanent access
 sudo etc/fstab
 10.10.10.12:/nfs_shares /mnt            nfs     rw,soft         0 0
